@@ -1,0 +1,78 @@
+global:
+  labels:
+    app: argoCD
+
+server:
+  service:
+    type: ClusterIP
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 150m
+      memory: 128Mi
+  labels:
+    app: argoCD
+
+applicationController:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  labels:
+    app: argoCD
+
+repoServer:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  labels:
+    app: argoCD
+
+applicationSet:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  labels:
+    app: argoCD
+
+controller:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
+  labels:
+    app: argoCD
+
+configs:
+  cm:
+    application.instanceLabelKey: argocd.argoproj.io/instance
+  params:
+    server.insecure: true
+  secret:
+    argocdServerAdminPassword: $2a$12$itsr5r7KuliOSsGBvbcbreE2ayYV./HFEX1oYhW5GIYV8dJ57opmy

@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    arch: outer
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: docker.io/sunwoo11/keywe_config_server:latest
+    argocd-image-updater.argoproj.io/update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      nodeSelector:
+        app: keywe-service
+      containers:
+        - name: config-server
+          image: sunwoo11/keywe_config_server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: local
+            - name: SPRING_RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: rabbitmq-host
+            - name: SPRING_RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: rabbitmq-port
+            - name: SPRING_RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: rabbitmq-username
+            - name: SPRING_RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: rabbitmq-password
+            - name: GIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: git-username
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: git-token
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  labels:
+    arch: outer
+spec:
+  selector:
+    app: config-server
+  ports:
+    - port: 8888
+      targetPort: 8888

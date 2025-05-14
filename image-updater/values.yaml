@@ -1,0 +1,20 @@
+global:
+  labels:
+    app: argoCD
+
+nodeSelector:
+  app: argoCD-service
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 150m
+    memory: 128Mi
+
+config:
+  argoCD:
+    serverAddress: argocd-server.argocd.svc
+    plainText: true
+    insecure: true
