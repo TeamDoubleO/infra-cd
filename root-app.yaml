@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TeamDoubleO/infraCD.git
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
     targetRevision: develop
     path: apps
     directory:
@@ -33,7 +33,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TeamDoubleO/infraCD.git
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
     targetRevision: develop
     path: apps/01-no-depend
   destination:
@@ -54,7 +54,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TeamDoubleO/infraCD.git
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
     targetRevision: develop
     path: apps/02-config-server
   destination:
@@ -77,7 +77,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TeamDoubleO/infraCD.git
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
     targetRevision: develop
     path: apps/03-service-discovery
   destination:
@@ -91,18 +91,202 @@ spec:
     - config-server
 
 ---
-# 04-depend.yaml
+# 04-mobile-gateway
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: depend
+  name: mobile-gateway
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/TeamDoubleO/infraCD.git
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
     targetRevision: develop
-    path: apps/04-depend
+    path: apps/04-mobile-gateway
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-admin-gateway
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: admin-gateway
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-admin-gateway
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-member-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: member-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-member-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-admin-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: admin-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-admin-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-pass-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pass-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-pass-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-hospital-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hospital-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-hospital-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-did-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: did-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-did-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-patient-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: patient-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-patient-service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  dependencies:
+    - service-discovery
+
+---
+# 04-tenant-service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenant-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/TeamDoubleO/infra-cd.git
+    targetRevision: develop
+    path: apps/04-tenant-service
   destination:
     server: https://kubernetes.default.svc
     namespace: default
