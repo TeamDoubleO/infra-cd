@@ -30,6 +30,8 @@ kind: Application
 metadata:
   name: no-depend
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
@@ -51,6 +53,8 @@ kind: Application
 metadata:
   name: config-server
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
@@ -74,6 +78,8 @@ kind: Application
 metadata:
   name: service-discovery
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
@@ -97,6 +103,8 @@ kind: Application
 metadata:
   name: mobile-gateway
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: default
   source:
@@ -120,6 +128,8 @@ kind: Application
 metadata:
   name: admin-gateway
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   project: default
   source:
@@ -143,6 +153,8 @@ kind: Application
 metadata:
   name: member-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   project: default
   source:
@@ -166,6 +178,8 @@ kind: Application
 metadata:
   name: admin-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -189,6 +203,8 @@ kind: Application
 metadata:
   name: pass-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -212,6 +228,8 @@ kind: Application
 metadata:
   name: hospital-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -235,6 +253,8 @@ kind: Application
 metadata:
   name: did-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -258,6 +278,8 @@ kind: Application
 metadata:
   name: patient-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -281,6 +303,8 @@ kind: Application
 metadata:
   name: tenant-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:

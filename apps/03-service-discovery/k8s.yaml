@@ -21,6 +21,19 @@ spec:
     spec:
       nodeSelector:
         app: keywe-service
+      initContainers:
+        - name: wait-for-config-server
+          image: curlimages/curl:8.5.0
+          command:
+            - sh
+            - -c
+            - |
+              echo "⏳ Waiting for config-server to be healthy..."
+              until curl -sf http://config-server:8888/actuator/health | grep '"status":"UP"'; do
+                echo "⏱️ config-server not ready yet..."
+                sleep 5
+              done
+              echo "✅ config-server is healthy. Continuing..."
       containers:
         - name: service-discovery
           image: sunwoo11/keywe_service_discovery:latest
@@ -55,18 +68,3 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: service-discovery
-  labels:
-    arch: outer
-spec:
-  selector:
-    app: service-discovery
-  ports:
-    - port: 8761
-      targetPort: 8761
