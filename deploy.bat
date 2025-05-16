@@ -5,7 +5,11 @@ echo [1/5] 기존 Helm 릴리스 삭제 및 기존 리소스들 삭제
 helm uninstall argocd -n argocd >nul 2>&1
 helm uninstall argocd-image-updater -n argocd-image-updater >nul 2>&1
 kubectl delete applications --all -n argocd
-kubectl delete all --all -n default
+kubectl delete deploy -n default -l arch=inner
+kubectl delete deploy -n default -l arch=outer
+kubectl delete svc -n default -l arch=inner
+kubectl delete svc -n default -l arch=outer
+
 
 echo [2/5] Helm repo 등록 및 업데이트
 helm repo add argo https://argoproj.github.io/argo-helm
