@@ -21,6 +21,11 @@ spec:
     spec:
       nodeSelector:
         app: keywe-service
+      initContainers:
+        - name: wait-for-rabbitmq
+          image: curlimages/curl
+          command: ['sh', '-c', 'until curl -f rabbitmq:15672; do echo waiting for rabbitmq; sleep 5; done']
+
       containers:
         - name: config-server
           image: sunwoo11/keywe_config_server:latest
@@ -60,6 +65,14 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: git-token
+
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
 
 ---
 

@@ -14,7 +14,30 @@ resources:
     memory: 128Mi
 
 config:
+  logLevel: info
+
   argoCD:
     serverAddress: argocd-server.argocd.svc
     plainText: true
     insecure: true
+
+  git:
+    writeBack:
+      enabled: true
+      name: Argo CD Image Updater
+      email: updater@keywe.info
+      credentials:
+        username: $(GIT_USERNAME)
+        password: $(GIT_PASSWORD)
+
+extraEnv:
+  - name: GIT_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: keywe-secrets
+        key: git-username
+  - name: GIT_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: keywe-secrets
+        key: git-token
