@@ -122,6 +122,5 @@ spec:
   ports:
     - port: 60006
       targetPort: 60006
-  ports:
     - port: 50006
       targetPort: 50006

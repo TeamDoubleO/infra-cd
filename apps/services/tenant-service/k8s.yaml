@@ -137,6 +137,5 @@ spec:
   ports:
     - port: 60007
       targetPort: 60007
-  ports:
     - port: 50007
       targetPort: 50007
