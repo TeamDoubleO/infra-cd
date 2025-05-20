@@ -29,6 +29,12 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 15
             failureThreshold: 5
+          readinessProbe:
+            exec:
+              command: ["rabbitmq-diagnostics", "ping"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
              memory: "512Mi"

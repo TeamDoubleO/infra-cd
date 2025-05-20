@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-discovery
+  name: config-server
   labels:
     arch: outer
   annotations:
-    argocd-image-updater.argoproj.io/image-list: docker.io/sunwoo11/keywe_service_discovery:latest
+    argocd-image-updater.argoproj.io/image-list: docker.io/sunwoo11/keywe_config_server:latest
     argocd-image-updater.argoproj.io/update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: develop
@@ -13,41 +13,31 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: service-discovery
+      app: config-server
   template:
     metadata:
       labels:
-        app: service-discovery
+        app: config-server
     spec:
       nodeSelector:
         app: keywe-service
-      initContainers:
-        - name: wait-for-config-server
-          image: curlimages/curl:8.5.0
-          command:
-            - sh
-            - -c
-            - |
-              echo "⏳ Waiting for config-server to be healthy..."
-              until curl -sf http://config-server.default.svc.cluster.local:8888/actuator/health | grep '"status":"UP"'; do 
-                echo "⏱️ config-server not ready yet..."
-                sleep 5
-              done
-              echo "✅ config-server is healthy. Continuing..."
       containers:
-        - name: service-discovery
-          image: sunwoo11/keywe_service_discovery:latest
+        - name: config-server
+          image: sunwoo11/keywe_config_server:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8761
+            - containerPort: 8888
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 5
+
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: docker
-            - name: CONFIG_SERVER_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: config-server-url
+              value: local
             - name: SPRING_RABBITMQ_HOST
               valueFrom:
                 configMapKeyRef:
@@ -68,18 +58,36 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
+            - name: GIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: git-username
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: git-token
+
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-discovery
+  name: config-server
   labels:
     arch: outer
 spec:
   selector:
-    app: service-discovery
+    app: config-server
   ports:
-    - port: 8761
-      targetPort: 8761
+    - port: 8888
+      targetPort: 8888
