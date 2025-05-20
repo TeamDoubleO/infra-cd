@@ -137,5 +137,7 @@ spec:
   ports:
     - port: 60007
       targetPort: 60007
+      name: http
     - port: 50007
       targetPort: 50007
+      name: grpc
