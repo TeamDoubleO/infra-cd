@@ -3,6 +3,11 @@ kind: Application
 metadata:
   name: admin-service
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: "sunwoo11/keywe_admin_service"
+    argocd-image-updater.argoproj.io/update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: develop
 spec:
   project: default
   source:

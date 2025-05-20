@@ -31,25 +31,25 @@ helm upgrade --install argocd-image-updater argo/argocd-image-updater ^
   -f image-updater/values.yaml
 
 echo [대기] Image Updater 설치 후 안정화 대기 (3분)
-timeout /t 180 >nul
+timeout /t 120 >nul
 
 echo [5/8] 00-core (RabbitMQ/Redis) 배포
 kubectl apply -f apps/00-core/application.yaml -n argocd
 
 echo [대기] 00-core 배포 안정화 대기 (3분)
-timeout /t 180 >nul
+timeout /t 120 >nul
 
 echo [6/8] 01-config (Config Server) 배포
 kubectl apply -f apps/01-config/application.yaml -n argocd
 
 echo [대기] 01-config 배포 안정화 대기 (3분)
-timeout /t 180 >nul
+timeout /t 120 >nul
 
 echo [7/8] 02-discovery (Eureka) 배포
 kubectl apply -f apps/02-discovery/application.yaml -n argocd
 
 echo [대기] 02-discovery 배포 안정화 대기 (3분)
-timeout /t 180 >nul
+timeout /t 120 >nul
 
 echo [8/8] 03-services (App of Apps) 배포
 kubectl apply -f apps/03-services/application.yaml -n argocd

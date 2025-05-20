@@ -6,11 +6,6 @@ metadata:
   labels:
     app: admin-gateway
     arch: outer
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: docker.io/sunwoo11/keywe_admin_gateway:latest
-    argocd-image-updater.argoproj.io/update-strategy: latest
-    argocd-image-updater.argoproj.io/write-back-method: git
-    argocd-image-updater.argoproj.io/git-branch: develop
 spec:
   replicas: 1
   selector:
