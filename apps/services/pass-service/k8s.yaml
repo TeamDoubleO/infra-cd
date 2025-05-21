@@ -18,7 +18,7 @@ spec:
         app: keywe-service
       containers:
         - name: pass-service
-          image: sunwoo11/keywe_pass_service:latest@sha256:1234567890abcdef
+          image: sunwoo11/keywe_pass_service:dev
           imagePullPolicy: Always
           ports:
             - containerPort: 60003

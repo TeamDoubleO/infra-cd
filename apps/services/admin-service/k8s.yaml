@@ -18,7 +18,7 @@ spec:
         app: keywe-service
       containers:
         - name: admin-service
-          image: sunwoo11/keywe_admin_service:latest@sha256:1234567890abcdef
+          image: sunwoo11/keywe_admin_service:dev
           imagePullPolicy: Always
           ports:
             - containerPort: 60002
