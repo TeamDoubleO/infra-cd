@@ -1,3 +1,0 @@
-kustomize:
-  images:
-  - sunwoo11/keywe_hospital_service:latest

@@ -1,3 +1,0 @@
-kustomize:
-  images:
-  - sunwoo11/keywe_admin_gateway:latest
