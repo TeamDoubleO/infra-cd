@@ -4,11 +4,10 @@ metadata:
   name: patient-service
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: sunwoo11/keywe_patient_service
+    argocd-image-updater.argoproj.io/image-list: "sunwoo11/keywe_patient_service:dev"
     argocd-image-updater.argoproj.io/update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: develop
-    argocd-image-updater.argoproj.io/sunwoo11-keywe_patient_service.tag: dev
 spec:
   project: default
   source:
