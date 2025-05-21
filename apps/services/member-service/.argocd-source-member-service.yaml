@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - sunwoo11/keywe_member_service:latest
