@@ -20,7 +20,7 @@ spec:
         app: rabbitmq-service
       containers:
         - name: mobile-gateway
-          image: sunwoo11/keywe_mobile_gateway:latest
+          image: sunwoo11/keywe_mobile_gateway:latest@sha256:1234567890abcdef
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
