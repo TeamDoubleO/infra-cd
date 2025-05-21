@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - sunwoo11/keywe_patient_service:latest
