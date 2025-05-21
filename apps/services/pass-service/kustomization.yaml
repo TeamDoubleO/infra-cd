@@ -1,2 +1,5 @@
 resources:
   - k8s.yaml
+images:
+  - name: sunwoo11/keywe_pass_service
+    newTag: latest
