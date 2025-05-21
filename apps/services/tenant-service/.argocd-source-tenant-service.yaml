@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - sunwoo11/keywe_tenant_service:latest
