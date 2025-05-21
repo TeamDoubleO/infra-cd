@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 echo [1/8] 기존 Helm 릴리스 및 리소스 삭제
 helm uninstall argocd -n argocd >nul 2>&1
-helm uninstall argocd-image-updater -n argocd-image-updater >nul 2>&1
+helm uninstall argocd-image-updater -n argocd >nul 2>&1
 kubectl delete applications --all -n argocd >nul 2>&1
 kubectl delete deploy -n default -l arch=outer >nul 2>&1
 kubectl delete deploy -n default -l arch=inner >nul 2>&1
@@ -26,7 +26,7 @@ echo [대기] ArgoCD 설치 후 안정화 대기 (3분)
 
 echo [4/8] ArgoCD Image Updater 설치
 helm upgrade --install argocd-image-updater argo/argocd-image-updater ^
-  --namespace argocd-image-updater ^
+  --namespace argocd ^
   --create-namespace ^
   -f image-updater/values.yaml
 

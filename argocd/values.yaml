@@ -1,6 +1,8 @@
 global:
   labels:
     app: argoCD
+  gitUsername: ""
+  gitToken: ""
 
 server:
   service:
@@ -76,3 +78,9 @@ configs:
     server.insecure: true
   secret:
     argocdServerAdminPassword: $2a$12$j6BRrzKB7xcE5V6wenpy1ei.z.x8jZDEQsjfs2CEXc.VMtCd2mkka
+  repositories:
+    infra-cd:
+      url: https://github.com/TeamDoubleO/infra-cd.git
+      type: git
+      username: "{{ .Values.global.gitUsername }}"
+      password: "{{ .Values.global.gitToken }}"
