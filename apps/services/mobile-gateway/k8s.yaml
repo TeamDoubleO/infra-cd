@@ -27,6 +27,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
+            - name: SPRING_PROFILES_INCLUDE
+              value: "actuator,swagger,security,redis,k8s-routes,k8s-grpc"
 
             - name: CONFIG_SERVER_URL
               valueFrom:
