@@ -22,6 +22,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 60005
+            - containerPort: 50005
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker

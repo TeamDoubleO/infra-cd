@@ -15,7 +15,8 @@ resources:
 
 config:
   logLevel: info
-
+  updateInterval: 30m
+  
   argoCD:
     serverAddress: argocd-server.argocd.svc
     plainText: true
