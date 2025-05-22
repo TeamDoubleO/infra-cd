@@ -1,8 +1,6 @@
 global:
   labels:
     app: argoCD
-  gitUsername: ""
-  gitToken: ""
 
 server:
   service:
@@ -11,11 +9,11 @@ server:
     app: argoCD-service
   resources:
     requests:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 200m
+      memory: 256Mi
     limits:
-      cpu: 150m
-      memory: 128Mi
+      cpu: 500m
+      memory: 512Mi
   labels:
     app: argoCD
 
@@ -24,11 +22,11 @@ applicationController:
     app: argoCD-service
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 400m
+      memory: 512Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 1
+      memory: 2Gi
   labels:
     app: argoCD
 
@@ -37,11 +35,11 @@ repoServer:
     app: argoCD-service
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 250m
+      cpu: 200m
       memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
   labels:
     app: argoCD
 
@@ -50,11 +48,11 @@ applicationSet:
     app: argoCD-service
   resources:
     requests:
-      cpu: 50m
-      memory: 64Mi
-    limits:
       cpu: 100m
       memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
   labels:
     app: argoCD
 
@@ -82,5 +80,3 @@ configs:
     infra-cd:
       url: https://github.com/TeamDoubleO/infra-cd.git
       type: git
-      username: "{{ .Values.global.gitUsername }}"
-      password: "{{ .Values.global.gitToken }}"
