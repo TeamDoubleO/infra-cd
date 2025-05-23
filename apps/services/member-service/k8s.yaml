@@ -26,6 +26,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
+            - name: SPRING_PROFILES_INCLUDE
+              value: "actuator,swagger,redis,k8s-grpc,datasource"
             - name: CONFIG_SERVER_URL
               valueFrom:
                 configMapKeyRef:
@@ -154,5 +156,5 @@ spec:
       targetPort: 60001
       name: http
     - port: 50001
-      targetPort: 50001
+      targetPort: 9090
       name: grpc

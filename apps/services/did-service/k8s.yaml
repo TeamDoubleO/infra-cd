@@ -26,6 +26,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
+            - name: SPRING_PROFILES_INCLUDE
+              value: "actuator,swagger,datasource"
             - name: CONFIG_SERVER_URL
               valueFrom:
                 configMapKeyRef:
