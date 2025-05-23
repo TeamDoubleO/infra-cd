@@ -1,3 +1,7 @@
+extraArgs:
+  - run
+  - --interval=30m
+
 global:
   labels:
     app: argoCD
@@ -16,7 +20,7 @@ resources:
 config:
   logLevel: info
   updateInterval: 30m
-  
+
   argoCD:
     serverAddress: argocd-server.argocd.svc
     plainText: true
@@ -42,3 +46,5 @@ extraEnv:
       secretKeyRef:
         name: keywe-secrets
         key: git-token
+  - name: ARGOCD_IMAGE_UPDATER_INTERVAL
+    value: "30m"

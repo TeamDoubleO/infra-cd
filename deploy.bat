@@ -45,11 +45,11 @@ kubectl apply -f apps/01-config/application.yaml -n argocd
 echo [WAIT] Waiting for 01-config deployment to stabilize (2 minutes)
 timeout /t 120 >nul
 
-echo [7/8] Deploying 02-discovery (Eureka)
-kubectl apply -f apps/02-discovery/application.yaml -n argocd
+::echo [7/8] Deploying 02-discovery (Eureka)
+::kubectl apply -f apps/02-discovery/application.yaml -n argocd
 
-echo [WAIT] Waiting for 02-discovery deployment to stabilize (2 minutes)
-timeout /t 120 >nul
+::echo [WAIT] Waiting for 02-discovery deployment to stabilize (2 minutes)
+::timeout /t 120 >nul
 
 echo [8/8] Deploying 03-services (App of Apps)
 kubectl apply -f apps/03-services/application.yaml -n argocd
