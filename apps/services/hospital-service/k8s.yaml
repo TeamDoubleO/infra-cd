@@ -5,7 +5,7 @@ metadata:
   labels:
     arch: inner
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: hospital-service
@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: hospital-service
+        sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
         app: keywe-service

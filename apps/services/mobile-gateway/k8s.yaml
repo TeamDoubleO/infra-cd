@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: mobile-gateway
+        sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
         app: rabbitmq-service

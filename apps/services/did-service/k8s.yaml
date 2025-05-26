@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: did-service
+        sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
         app: keywe-service
