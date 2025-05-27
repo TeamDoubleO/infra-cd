@@ -33,23 +33,24 @@ helm upgrade --install argocd-image-updater argo/argocd-image-updater ^
 echo [WAIT] Waiting for Image Updater installation to stabilize (2 minutes)
 timeout /t 120 >nul
 
-echo [5/8] Deploying 00-core (RabbitMQ/Redis)
+echo [5/8] Deploying Istio (Istiod)
+kubectl apply -f istio/istiod-application.yaml -n argocd
+
+echo [WAIT] Waiting for Istio deployment to stabilize (2 minutes)
+timeout /t 120 >nul
+
+echo [6/8] Deploying 00-core (RabbitMQ/Redis)
 kubectl apply -f apps/00-core/application.yaml -n argocd
 
 echo [WAIT] Waiting for 00-core deployment to stabilize (2 minutes)
 timeout /t 120 >nul
 
-echo [6/8] Deploying 01-config (Config Server)
+
+echo [7/8] Deploying 01-config (Config Server)
 kubectl apply -f apps/01-config/application.yaml -n argocd
 
 echo [WAIT] Waiting for 01-config deployment to stabilize (2 minutes)
 timeout /t 120 >nul
-
-::echo [7/8] Deploying 02-discovery (Eureka)
-::kubectl apply -f apps/02-discovery/application.yaml -n argocd
-
-::echo [WAIT] Waiting for 02-discovery deployment to stabilize (2 minutes)
-::timeout /t 120 >nul
 
 echo [8/8] Deploying 03-services (App of Apps)
 kubectl apply -f apps/03-services/application.yaml -n argocd

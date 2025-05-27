@@ -29,6 +29,8 @@ applicationController:
       memory: 2Gi
   labels:
     app: argoCD
+  operationProcessors: 3  
+  statusProcessors: 10
 
 repoServer:
   nodeSelector:
@@ -64,10 +66,12 @@ controller:
       cpu: 100m
       memory: 128Mi
     limits:
-      cpu: 300m
-      memory: 256Mi
+      cpu: 1
+      memory: 2Gi
   labels:
     app: argoCD
+  operationProcessors: 3  
+  statusProcessors: 10
 
 configs:
   cm:
@@ -76,7 +80,4 @@ configs:
     server.insecure: true
   secret:
     argocdServerAdminPassword: $2a$12$j6BRrzKB7xcE5V6wenpy1ei.z.x8jZDEQsjfs2CEXc.VMtCd2mkka
-  repositories:
-    infra-cd:
-      url: https://github.com/TeamDoubleO/infra-cd.git
-      type: git
+
