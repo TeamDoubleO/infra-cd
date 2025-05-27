@@ -136,7 +136,7 @@ spec:
                   key: admin-grpc-port
           resources:
             requests:
-              memory: "512Mi"
+              memory: "256Mi"
               cpu: "150m"
             limits:
               memory: "1Gi"
