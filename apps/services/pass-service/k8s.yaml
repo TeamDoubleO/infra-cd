@@ -25,6 +25,8 @@ spec:
             - containerPort: 60003
             - containerPort: 50003
           env:
+            - name: TZ
+              value: Asia/Seoul
             - name: SPRING_PROFILES_ACTIVE
               value: docker
             - name: SPRING_PROFILES_INCLUDE
