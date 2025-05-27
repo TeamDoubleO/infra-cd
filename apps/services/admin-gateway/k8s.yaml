@@ -30,7 +30,8 @@ spec:
               value: docker
             - name: SPRING_PROFILES_INCLUDE
               value: "actuator,swagger,security,redis,k8s-routes"
-
+            - name: TZ
+              value: Asia/Seoul
             - name: CONFIG_SERVER_URL
               valueFrom:
                 configMapKeyRef:
@@ -57,18 +58,6 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
-
-            - name: EUREKA_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: eureka-host
-            - name: EUREKA_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: eureka-port
-
             - name: JWT_ACCESS_TOKEN_SECRET
               valueFrom:
                 secretKeyRef:
