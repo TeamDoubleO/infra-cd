@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pass-service
+  name: entrance-service
   labels:
     arch: inner
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pass-service
+      app: entrance-service
   template:
     metadata:
       labels:
-        app: pass-service
+        app: entrance-service
         istio: sidecar
       annotations:
         sidecar.istio.io/inject: "true"
@@ -20,19 +20,13 @@ spec:
       nodeSelector:
         app: keywe-service
       containers:
-        - name: pass-service
-          image: sunwoo11/keywe_pass_service:dev
+        - name: entrance-service
+          image: sunwoo11/keywe_entrance_service:dev
           imagePullPolicy: Always
           ports:
-            - containerPort: 60003
-            - containerPort: 50003
+            - containerPort: 60008
+            - containerPort: 50008
           env:
-            - name: TZ
-              value: Asia/Seoul
-            - name: SPRING_PROFILES_ACTIVE
-              value: docker
-            - name: SPRING_PROFILES_INCLUDE
-              value: "actuator,swagger,redis,k8s-grpc,datasource"
             - name: TZ
               value: Asia/Seoul
             - name: CONFIG_SERVER_URL
@@ -60,41 +54,16 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
-            - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: db-host
-            - name: MYSQL_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: db-port
-            - name: MYSQL_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: keywe-secrets
-                  key: db-user
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: keywe-secrets
-                  key: db-pass
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: pas-db-name
             - name: PORT
               valueFrom:
                 configMapKeyRef:
                   name: keywe-config
-                  key: pass-service-port
+                  key: entrance-service-port
             - name: GRPC_PORT
               valueFrom:
                 configMapKeyRef:
                   name: keywe-config
-                  key: pass-grpc-port
+                  key: entrance-grpc-port
           resources:
             requests:
               memory: "256Mi"
@@ -102,22 +71,22 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "1"
-
+                  
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: pass-service
+  name: entrance-service
   labels:
     arch: inner
 spec:
   selector:
-    app: pass-service
+    app: entrance-service
   ports:
-    - port: 60003
-      targetPort: 60003
+    - port: 60008
+      targetPort: 60008
       name: http
-    - port: 50003
-      targetPort: 50003
+    - port: 50008
+      targetPort: 50008
       name: grpc
