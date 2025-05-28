@@ -80,6 +80,21 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: db-pass
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: admin-redis-host
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: admin-redis-port
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: admin-redis-password
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
