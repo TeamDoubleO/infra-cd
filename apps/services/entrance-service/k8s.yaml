@@ -25,7 +25,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 60008
-            - containerPort: 50008
           env:
             - name: TZ
               value: Asia/Seoul
@@ -59,11 +58,6 @@ spec:
                 configMapKeyRef:
                   name: keywe-config
                   key: entrance-service-port
-            - name: GRPC_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: entrance-grpc-port
           resources:
             requests:
               memory: "256Mi"
@@ -87,6 +81,3 @@ spec:
     - port: 60008
       targetPort: 60008
       name: http
-    - port: 50008
-      targetPort: 50008
-      name: grpc
