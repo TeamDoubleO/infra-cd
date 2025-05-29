@@ -118,6 +118,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8081
+      name: http
     - port: 15090
       targetPort: 15090
       name: http-envoy-prom
