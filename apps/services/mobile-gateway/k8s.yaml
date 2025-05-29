@@ -7,7 +7,6 @@ metadata:
     app: mobile-gateway
     arch: outer
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mobile-gateway
