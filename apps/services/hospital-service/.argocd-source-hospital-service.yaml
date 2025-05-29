@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - sunwoo11/keywe_hospital_service:dev@sha256:37518c3a24d3157107d163a537b45df338c5ff524be571dbf1ca5e3507dbf653
+  - sunwoo11/keywe_hospital_service:dev@sha256:43b549da40716631200ba05a124a425981a6292291d89f38e0d4319709a11fd5
