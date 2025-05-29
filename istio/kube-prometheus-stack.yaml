@@ -52,3 +52,6 @@ spec:
   ignoreDifferences:
     - group: "apiextensions.k8s.io"
       kind: "CustomResourceDefinition"
+      jqPathExpressions:
+        - .metadata.annotations
+        - .metadata.labels
