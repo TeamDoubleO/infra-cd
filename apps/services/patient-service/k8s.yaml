@@ -108,6 +108,7 @@ metadata:
   name: patient-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: patient-service
@@ -118,3 +119,6 @@ spec:
     - port: 50006
       targetPort: 50006
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

@@ -142,6 +142,7 @@ metadata:
   name: member-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: member-service
@@ -152,3 +153,6 @@ spec:
     - port: 50001
       targetPort: 50001
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

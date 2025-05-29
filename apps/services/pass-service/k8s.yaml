@@ -125,6 +125,7 @@ metadata:
   name: pass-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: pass-service
@@ -135,3 +136,6 @@ spec:
     - port: 50003
       targetPort: 50003
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

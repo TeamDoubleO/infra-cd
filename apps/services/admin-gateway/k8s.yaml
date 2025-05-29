@@ -111,6 +111,7 @@ metadata:
   labels:
     app: admin-gateway
     arch: outer
+    istio: sidecar
 spec:
   selector:
     app: admin-gateway
@@ -118,4 +119,8 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8082
+      name: http
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom
   type: ClusterIP

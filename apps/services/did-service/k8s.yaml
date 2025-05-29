@@ -94,7 +94,7 @@ spec:
                   key: did-grpc-port
           resources:
             requests:
-              memory: "256Mi"
+              memory: "256Mi" 
               cpu: "100m"
             limits:
               memory: "1Gi"
@@ -108,6 +108,7 @@ metadata:
   name: did-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: did-service
@@ -118,3 +119,6 @@ spec:
     - port: 50005
       targetPort: 50005
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

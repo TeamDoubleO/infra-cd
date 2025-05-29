@@ -143,6 +143,7 @@ metadata:
   name: admin-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: admin-service
@@ -153,3 +154,6 @@ spec:
     - port: 50002
       targetPort: 50002
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

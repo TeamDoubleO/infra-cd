@@ -123,6 +123,7 @@ metadata:
   name: tenant-service
   labels:
     arch: inner
+    istio: sidecar
 spec:
   selector:
     app: tenant-service
@@ -133,3 +134,6 @@ spec:
     - port: 50007
       targetPort: 50007
       name: grpc
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom

@@ -36,15 +36,11 @@ timeout /t 120 >nul
 echo [5/8] Deploying Istio (Istiod)
 kubectl apply -f istio/istiod-application.yaml -n argocd
 
-echo [WAIT] Waiting for Istio deployment to stabilize (2 minutes)
-timeout /t 120 >nul
-
 echo [6/8] Deploying 00-core (RabbitMQ/Redis)
 kubectl apply -f apps/00-core/application.yaml -n argocd
 
 echo [WAIT] Waiting for 00-core deployment to stabilize (2 minutes)
 timeout /t 120 >nul
-
 
 echo [7/8] Deploying 01-config (Config Server)
 kubectl apply -f apps/01-config/application.yaml -n argocd

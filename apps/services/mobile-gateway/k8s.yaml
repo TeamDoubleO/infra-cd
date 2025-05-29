@@ -110,6 +110,7 @@ metadata:
   labels:
     app: mobile-gateway
     arch: outer
+    istio: sidecar
 spec:
   selector:
     app: mobile-gateway
@@ -117,4 +118,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8081
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom
   type: ClusterIP
