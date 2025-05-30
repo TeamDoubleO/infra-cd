@@ -91,13 +91,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: config-service-hpa
+  name: config-server-hpa
   namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: config-service
+    name: config-server
   minReplicas: 1
   maxReplicas: 3
   metrics:

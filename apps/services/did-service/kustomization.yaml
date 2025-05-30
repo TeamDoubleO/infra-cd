@@ -1,7 +1,0 @@
-resources:
-  - k8s.yaml
-images:
-  - name: sunwoo11/sunwoo11/keywe_did_service
-    newName: sunwoo11/sunwoo11/keywe_did_service
-    newTag: dev
-
