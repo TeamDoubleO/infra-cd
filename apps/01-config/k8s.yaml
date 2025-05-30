@@ -5,7 +5,6 @@ metadata:
   labels:
     arch: outer
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: config-server
@@ -86,3 +85,28 @@ spec:
   ports:
     - port: 8888
       targetPort: 8888
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: config-service-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: config-service
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60

@@ -34,7 +34,7 @@ echo [WAIT] Waiting for Image Updater installation to stabilize (2 minutes)
 timeout /t 120 >nul
 
 echo [5/8] Deploying Istio (Istiod)
-kubectl apply -f istio/istiod-servicemonitor-application.yaml -n argocd
+kubectl apply -f istio/istio-servicemonitor-application.yaml -n argocd
 
 echo [6/8] Deploying 00-core (RabbitMQ/Redis)
 kubectl apply -f apps/00-core/application.yaml -n argocd

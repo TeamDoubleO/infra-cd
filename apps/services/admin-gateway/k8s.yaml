@@ -7,7 +7,6 @@ metadata:
     app: admin-gateway
     arch: outer
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: admin-gateway
@@ -124,3 +123,28 @@ spec:
       targetPort: 15090
       name: http-envoy-prom
   type: ClusterIP
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: admin-gateway-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: admin-gateway
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60
