@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - sunwoo11/keywe_pass_service:dev@sha256:42b81fa022c1cf838ee501eb9ae82a829d8cf4dc97b02bea4920ee11495d1da9
+  - sunwoo11/keywe_pass_service:dev@sha256:019f2f0b21a3188f56058a09b490d963e2988895929a935a84f0fcc5b6010607
