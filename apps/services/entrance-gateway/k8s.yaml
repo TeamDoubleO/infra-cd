@@ -24,7 +24,7 @@ spec:
           image: sunwoo11/keywe_entrance_gateway:dev
           imagePullPolicy: Always
           ports:
-            - containerPort: 8082
+            - containerPort: 60009
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
@@ -89,7 +89,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: 8082
+              port: 60009
             initialDelaySeconds: 10
             periodSeconds: 10
             failureThreshold: 3
@@ -117,7 +117,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8082
+      targetPort: 60009
       name: http
     - port: 15090
       targetPort: 15090
