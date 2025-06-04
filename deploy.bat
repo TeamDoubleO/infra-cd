@@ -3,7 +3,6 @@ setlocal enabledelayedexpansion
 
 echo [1/8] Removing existing Helm releases and resources
 helm uninstall argocd -n argocd >nul 2>&1
-helm uninstall argocd-image-updater -n argocd >nul 2>&1
 kubectl delete applications --all -n argocd >nul 2>&1
 kubectl delete deploy -n default -l arch=outer >nul 2>&1
 kubectl delete deploy -n default -l arch=inner >nul 2>&1
