@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - sunwoo11/keywe_tenant_service:dev@sha256:8dfd934c0be8e024392997435c42107165ca7d40c1e94ca1c6aac04095ba0011
+  - sunwoo11/keywe_tenant_service:dev@sha256:574e2ebbf8c636fac6b751ee850de34fd28c583a2af62c394ea2a58c7c34861a
