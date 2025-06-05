@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: rabbitmq
   labels:
     arch: outer
 spec:
+  serviceName: rabbitmq-headless
   replicas: 1
   selector:
     matchLabels:
@@ -34,14 +35,49 @@ spec:
               command: ["rabbitmq-diagnostics", "ping"]
             initialDelaySeconds: 30
             periodSeconds: 15
+            timeoutSeconds: 5
             failureThreshold: 5
           resources:
             requests:
-             memory: "512Mi"
-             cpu: "500m"
+              memory: "512Mi"
+              cpu: "500m"
             limits:
               memory: "1Gi"
               cpu: "1000m"
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+
+  volumeClaimTemplates:
+    - metadata:
+        name: rabbitmq-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: gp3
+        resources:
+          requests:
+            storage: 10Gi
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-headless
+  labels:
+    arch: outer
+spec:
+  ports:
+    - port: 5672
+      name: amqp
+      targetPort: 5672
+    - port: 15672
+      name: management
+      targetPort: 15672
+  clusterIP: None
+  selector:
+    app: rabbitmq
 
 ---
 
