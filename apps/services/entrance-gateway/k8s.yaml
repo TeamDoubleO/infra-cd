@@ -18,7 +18,7 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
-        app: rabbitmq-service
+        app: keywe-service
       containers:
         - name: entrance-gateway
           image: sunwoo11/keywe_entrance_gateway:dev
