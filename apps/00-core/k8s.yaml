@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: rabbitmq
   labels:
-    arch: outer
+    app: rabbitmq
 spec:
   serviceName: rabbitmq-headless
   replicas: 1
@@ -15,6 +15,14 @@ spec:
       labels:
         app: rabbitmq
     spec:
+      nodeSelector:
+        app: rabbitmq-service     # 노드에 이 label이 있어야 함
+      tolerations:
+        - key: "rabbitmq-only"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+      priorityClassName: rabbitmq-priority
       containers:
         - name: rabbitmq
           image: rabbitmq:3.13-management
@@ -45,7 +53,6 @@ spec:
           volumeMounts:
             - name: rabbitmq-data
               mountPath: /var/lib/rabbitmq
-
   volumeClaimTemplates:
     - metadata:
         name: rabbitmq-data
@@ -57,6 +64,7 @@ spec:
             storage: 10Gi
 
 
+
 ---
 
 apiVersion: v1
@@ -64,8 +72,11 @@ kind: Service
 metadata:
   name: rabbitmq-headless
   labels:
-    arch: outer
+    app: rabbitmq
 spec:
+  clusterIP: None
+  selector:
+    app: rabbitmq
   ports:
     - port: 5672
       name: amqp
@@ -73,9 +84,6 @@ spec:
     - port: 15672
       name: management
       targetPort: 15672
-  clusterIP: None
-  selector:
-    app: rabbitmq
 
 ---
 
@@ -100,6 +108,16 @@ spec:
 
 ---
 
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: rabbitmq-priority
+value: 100000
+globalDefault: false
+description: "RabbitMQ는 클러스터에서 반드시 실행되어야 하는 핵심 메시지 브로커"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -117,7 +135,7 @@ spec:
         app: redis-mobile
     spec:
       nodeSelector:
-        app: rabbitmq-service
+        app: keywe-service
       containers:
         - name: redis
           image: redis:7-alpine
@@ -173,7 +191,7 @@ spec:
         app: redis-admin
     spec:
       nodeSelector:
-        app: rabbitmq-service
+        app: keywe-service
       containers:
         - name: redis
           image: redis:7-alpine
