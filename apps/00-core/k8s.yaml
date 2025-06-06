@@ -15,8 +15,6 @@ spec:
       labels:
         app: rabbitmq
     spec:
-      nodeSelector:
-        app: rabbitmq-service
       containers:
         - name: rabbitmq
           image: rabbitmq:3.13-management
