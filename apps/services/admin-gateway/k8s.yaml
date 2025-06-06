@@ -18,7 +18,7 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
-        app: rabbitmq-service
+        app: keywe-service
       containers:
         - name: admin-gateway
           image: sunwoo11/keywe_admin_gateway:dev
