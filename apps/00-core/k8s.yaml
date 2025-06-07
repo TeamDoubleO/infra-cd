@@ -135,7 +135,7 @@ spec:
         app: redis-mobile
     spec:
       nodeSelector:
-        app: keywe-service
+        app: rabbitmq-service
       containers:
         - name: redis
           image: redis:7-alpine
@@ -191,7 +191,7 @@ spec:
         app: redis-admin
     spec:
       nodeSelector:
-        app: keywe-service
+        app: rabbitmq-service
       containers:
         - name: redis
           image: redis:7-alpine
