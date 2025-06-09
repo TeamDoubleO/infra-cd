@@ -5,7 +5,6 @@ metadata:
   labels:
     arch: inner
 spec:
-  replicas: 0
   selector:
     matchLabels:
       app: hospital-service
@@ -123,4 +122,27 @@ spec:
       targetPort: 15090
       name: http-envoy-prom
 
+---
 
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hospital-service-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hospital-service
+  minReplicas: 0
+  maxReplicas: 0
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60
