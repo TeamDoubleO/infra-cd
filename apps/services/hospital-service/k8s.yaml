@@ -5,6 +5,7 @@ metadata:
   labels:
     arch: inner
 spec:
+  replicas: 0
   selector:
     matchLabels:
       app: hospital-service
