@@ -13,6 +13,13 @@ spec:
       values: |
         prometheus:
           prometheusSpec:
+            tolerations:
+              - key: "dedicated"
+                operator: "Equal"
+                value: "monitoring"
+                effect: "NoSchedule"
+            nodeSelector:
+              role: monitoring
             serviceMonitorSelectorNilUsesHelmValues: false
             podMonitorSelectorNilUsesHelmValues: false
             scrapeInterval: 15s
@@ -25,15 +32,16 @@ spec:
                   resources:
                     requests:
                       storage: 20Gi
-                tolerations:
-                  - key: "dedicated"
-                    operator: "Equal"
-                    value: "monitoring"
-                    effect: "NoSchedule"
-                nodeSelector:
-                  role: monitoring
+
         alertmanager:
           alertmanagerSpec:
+            tolerations:
+              - key: "dedicated"
+                operator: "Equal"
+                value: "monitoring"
+                effect: "NoSchedule"
+            nodeSelector:
+                role: monitoring
             storage:
               volumeClaimTemplate:
                 spec:
@@ -42,13 +50,7 @@ spec:
                   resources:
                     requests:
                       storage: 2Gi
-            tolerations:
-              - key: "dedicated"
-                operator: "Equal"
-                value: "monitoring"
-                effect: "NoSchedule"
-            nodeSelector:
-                role: monitoring
+
         grafana:
           admin:
             existingSecret: grafana-admin-secret

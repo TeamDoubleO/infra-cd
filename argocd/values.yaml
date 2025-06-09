@@ -73,6 +73,33 @@ controller:
   operationProcessors: 3  
   statusProcessors: 10
 
+redis:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  labels:
+    app: argoCD
+
+notifications:
+  nodeSelector:
+    app: argoCD-service
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  labels:
+    app: argoCD
+
+
 configs:
   cm:
     application.instanceLabelKey: argocd.argoproj.io/instance
