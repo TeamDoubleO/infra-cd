@@ -25,6 +25,13 @@ spec:
                   resources:
                     requests:
                       storage: 20Gi
+                tolerations:
+                  - key: "dedicated"
+                    operator: "Equal"
+                    value: "monitoring"
+                    effect: "NoSchedule"
+                nodeSelector:
+                  role: monitoring
         alertmanager:
           alertmanagerSpec:
             storage:
@@ -35,13 +42,28 @@ spec:
                   resources:
                     requests:
                       storage: 2Gi
+            tolerations:
+              - key: "dedicated"
+                operator: "Equal"
+                value: "monitoring"
+                effect: "NoSchedule"
+            nodeSelector:
+                role: monitoring
         grafana:
           admin:
             existingSecret: grafana-admin-secret
             userKey: admin-user
             passwordKey: admin-password
+          tolerations:
+            - key: "dedicated"
+              operator: "Equal"
+              value: "monitoring"
+              effect: "NoSchedule"
+          nodeSelector:
+            role: monitoring
         crds:
           install: false
+
 
   destination:
     server: https://kubernetes.default.svc

@@ -12,6 +12,13 @@ spec:
     helm:
       values: |
         loki:
+          tolerations:
+            - key: "dedicated"
+              operator: "Equal"
+              value: "monitoring"
+              effect: "NoSchedule"
+          nodeSelector:
+            role: monitoring
           persistence:
             enabled: true
             size: 20Gi
