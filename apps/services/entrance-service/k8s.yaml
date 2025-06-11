@@ -26,6 +26,10 @@ spec:
           env:
             - name: TZ
               value: Asia/Seoul
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: SPRING_PROFILES_INCLUDE
+              value: "actuator,swagger"
             - name: CONFIG_SERVER_URL
               valueFrom:
                 configMapKeyRef:
