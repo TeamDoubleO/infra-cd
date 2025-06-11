@@ -7,10 +7,23 @@ spec:
   project: default
   source:
     repoURL: https://grafana.github.io/helm-charts
-    chart: loki         # loki-stack → loki
-    targetRevision: 5.47.2   # (2025-06 기준, chart 버전. 실제 최신은 `helm search repo grafana/loki`로 확인)
+    chart: loki
+    targetRevision: 5.47.2
     helm:
       values: |
+        singleBinary:
+          replicas: 1
+          persistence:
+            enabled: true
+            size: 5Gi
+            storageClass: gp3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
         tolerations:
           - key: "dedicated"
             operator: "Equal"
@@ -18,23 +31,12 @@ spec:
             effect: "NoSchedule"
         nodeSelector:
           role: monitoring
-        persistence:
-          enabled: true
-          size: 20Gi
-          storageClassName: gp3
-        resources:
-          requests:
-            cpu: 200m
-            memory: 512Mi
-          limits:
-            cpu: 500m
-            memory: 1Gi
         serviceMonitor:
           enabled: true
           additionalLabels:
             release: kube-prometheus-stack
         retention:
-          time: 168h
+          time: 72h
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -42,9 +44,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -55,7 +55,7 @@ spec:
   source:
     repoURL: https://grafana.github.io/helm-charts
     chart: promtail
-    targetRevision: 6.15.5   # helm search repo grafana/promtail 로 확인
+    targetRevision: 6.15.5
     helm:
       values: |
         tolerations:
@@ -69,6 +69,15 @@ spec:
           enabled: true
           additionalLabels:
             release: kube-prometheus-stack
+        resources:
+          requests:
+            cpu: 30m
+            memory: 64Mi
+          limits:
+            cpu: 50m
+            memory: 128Mi
+        # promtail은 기본이 DaemonSet이라 replicaCount 옵션 무의미
+        # 노드 개수가 곧 파드 개수!
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
