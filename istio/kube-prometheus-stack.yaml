@@ -69,7 +69,7 @@ spec:
               url: http://loki.monitoring.svc.cluster.local:3100
               access: proxy
               isDefault: false
-      jsonData: {}
+              jsonData: {}
         crds:
           install: false
 
