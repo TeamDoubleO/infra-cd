@@ -77,7 +77,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: keywe-config
-                  key: ten-db-name
+                  key: ent-db-name
             - name: PORT
               valueFrom:
                 configMapKeyRef:
