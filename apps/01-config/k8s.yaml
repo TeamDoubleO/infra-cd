@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: config-server
+        istio: sidecar
+        sidecar.istio.io/inject: "true"        
     spec:
       nodeSelector:
         app: keywe-service
@@ -84,6 +86,9 @@ spec:
   selector:
     app: config-server
   ports:
-    - port: 8888
+    - name: http
+      port: 8888
       targetPort: 8888
-
+    - port: 15090
+      targetPort: 15090
+      name: http-envoy-prom
