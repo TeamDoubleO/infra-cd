@@ -53,6 +53,31 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: db-host
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: db-port
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: db-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keywe-secrets
+                  key: db-pass
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: keywe-config
+                  key: ten-db-name
             - name: PORT
               valueFrom:
                 configMapKeyRef:
