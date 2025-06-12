@@ -13,8 +13,6 @@ spec:
     metadata:
       labels:
         app: log-service
-        istio: sidecar
-        sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
         app: keywe-service
@@ -134,8 +132,5 @@ spec:
     - port: 50010
       targetPort: 50010
       name: grpc
-    - port: 15090
-      targetPort: 15090
-      name: http-envoy-prom
 
 

@@ -32,8 +32,8 @@ helm upgrade --install argocd-image-updater argo/argocd-image-updater ^
 echo [WAIT] Waiting for Image Updater installation to stabilize (2 minutes)
 timeout /t 120 >nul
 
-echo [5/8] Deploying Istio (Istiod)
-kubectl apply -f istio/istio-servicemonitor-application.yaml -n argocd
+echo [5/8] Deploying kube-prometheus-stack (prometheus, grafana)
+kubectl apply -f istio/kube-prometheus-stack.yaml -n argocd
 
 echo [6/8] Deploying 00-core (RabbitMQ/Redis)
 kubectl apply -f apps/00-core/application.yaml -n argocd

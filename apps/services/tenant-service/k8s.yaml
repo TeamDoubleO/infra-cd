@@ -12,8 +12,6 @@ spec:
     metadata:
       labels:
         app: tenant-service
-        istio: sidecar
-        sidecar.istio.io/inject: "true"
     spec:
       nodeSelector:
         app: keywe-service
@@ -133,9 +131,6 @@ spec:
     - port: 50007
       targetPort: 50007
       name: grpc
-    - port: 15090
-      targetPort: 15090
-      name: http-envoy-prom
 
 ---
 
