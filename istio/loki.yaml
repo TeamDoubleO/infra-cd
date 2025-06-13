@@ -11,6 +11,8 @@ spec:
     targetRevision: 5.47.2
     helm:
       values: |
+        loki:
+            auth_enabled: false
         singleBinary:
           replicas: 1
           persistence:
@@ -44,7 +46,9 @@ spec:
     automated:
       prune: true
       selfHeal: true
+
 ---
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -58,13 +62,6 @@ spec:
     targetRevision: 6.15.5
     helm:
       values: |
-        tolerations:
-          - key: "dedicated"
-            operator: "Equal"
-            value: "monitoring"
-            effect: "NoSchedule"
-        nodeSelector:
-          role: monitoring
         serviceMonitor:
           enabled: true
           additionalLabels:
@@ -76,8 +73,9 @@ spec:
           limits:
             cpu: 50m
             memory: 128Mi
-        # promtail은 기본이 DaemonSet이라 replicaCount 옵션 무의미
-        # 노드 개수가 곧 파드 개수!
+        promtail:
+          clients:
+            - url: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

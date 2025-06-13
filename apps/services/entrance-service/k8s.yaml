@@ -87,7 +87,7 @@ spec:
           resources:
             requests:
               memory: "256Mi"
-              cpu: "100m"
+              cpu: "200m"
             limits:
               memory: "1Gi"
               cpu: "1"
@@ -100,7 +100,6 @@ metadata:
   name: entrance-service
   labels:
     arch: inner
-    istio: sidecar
 spec:
   selector:
     app: entrance-service
