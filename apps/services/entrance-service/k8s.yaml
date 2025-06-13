@@ -15,6 +15,7 @@ spec:
     spec:
       nodeSelector:
         app: keywe-service
+      terminationGracePeriodSeconds: 30
       containers:
         - name: entrance-service
           image: sunwoo11/keywe_entrance_service:dev
@@ -84,6 +85,19 @@ spec:
                 configMapKeyRef:
                   name: keywe-config
                   key: entrance-service-port
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 60008
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+            successThreshold: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]
           resources:
             requests:
               memory: "256Mi"
