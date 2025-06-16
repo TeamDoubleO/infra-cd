@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - sunwoo11/keywe_did_agent:dev@sha256:85c334a4c18940581cf58606ef0d8726852c68c771ae0e1c6dbcb42376422b46
