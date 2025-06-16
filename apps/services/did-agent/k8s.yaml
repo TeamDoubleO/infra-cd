@@ -84,6 +84,20 @@ spec:
                 configMapKeyRef:
                   name: keywe-config
                   key: did-grpc-port
+            - name: MEDIATOR_ADMIN_URL
+              value: http://med-aca:8001
+            - name: HOSPITAL_ADMIN_URL
+              value: http://hos-aca:8002
+            - name:  ACAPY_CREATE_INVITATION
+              value: /out-of-band/create-invitation
+            - name: ACAPY_CHECK_CONNECTION
+              value: /out-of-band/invitations
+            - name: ACAPY_CREATE_DID
+              value: wallet/did/create
+            - name: ACAPY_POST_PUBLIC_DID
+              value: /wallet/did/public
+            - name: ACAPY_ISSUE_VC
+              value: /issue-credential-2.0/send-offer
           resources:
             requests:
               memory: "256Mi" 
