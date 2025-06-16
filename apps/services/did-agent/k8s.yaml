@@ -26,7 +26,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
             - name: SPRING_PROFILES_INCLUDE
-              value: "actuator,swagger,datasource,k8s-grpc"
+              value: "actuator,swagger,k8s-grpc,redis"
             - name: TZ
               value: Asia/Seoul
             - name: CONFIG_SERVER_URL
@@ -54,26 +54,6 @@ spec:
                 secretKeyRef:
                   name: keywe-secrets
                   key: rabbitmq-password
-            - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: db-host
-            - name: MYSQL_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: keywe-config
-                  key: db-port
-            - name: MYSQL_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: keywe-secrets
-                  key: db-user
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: keywe-secrets
-                  key: db-pass
             - name: REDIS_HOST
               valueFrom:
                 configMapKeyRef:
